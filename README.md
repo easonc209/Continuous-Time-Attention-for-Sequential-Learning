@@ -1,9 +1,8 @@
 # Continuous-Time Attention
 Attention mechanism is crucial for sequential learning where a wide range of applications have been developed. This mechanism is basically trained to spotlight on the region of interest in hidden states of sequence data. Most of the attention methods compute the attention score through relating between a query and a document where the discrete-time state trajectory is represented. Such a discrete-time attention could not directly attend the continuous-time trajectory which is represented via neural differential equation combined with recurrent neural network. This paper presents a new continuous-time attention method for sequential learning which is tightly integrated with the neural differential equation to construct an attentive continuous-time state machine. The continuous-time attention is performed at all times over the hidden states of any kinds of regular or irregular time signals. The missing information in sequence data due to sampling loss is seamlessly compensated and attended in learning representation. The experiments on regular and irregular sequence samples from human activities, dialogue sentences and medical features show the merit of the proposed continuous-time attention for activity recognition, sentiment classification and mortality prediction, respectively.
 
-<center class="half">
-    <img src="./assets/Att-ODE-RNN.png" alt="image-1" style="display: inline-block" width="300"/><img src="./assets/CAtt-ODE-RNN.png" alt="image-1" style="display: inline-block" width="300"/>
-</center>
+<img src="./assets/Att-ODE-RNN.png" alt="image-1" style="display: inline-block" width="300"/><img src="./assets/CAtt-ODE-RNN.png" alt="image-1" style="display: inline-block" width="300"/>
+
 <center>Models</center>
 
 
