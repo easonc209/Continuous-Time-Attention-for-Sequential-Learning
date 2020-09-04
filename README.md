@@ -1,13 +1,11 @@
 # Continuous-Time Attention
 Attention mechanism is crucial for sequential learning where a wide range of applications have been developed. This mechanism is basically trained to spotlight on the region of interest in hidden states of sequence data. Most of the attention methods compute the attention score through relating between a query and a document where the discrete-time state trajectory is represented. Such a discrete-time attention could not directly attend the continuous-time trajectory which is represented via neural differential equation combined with recurrent neural network. This paper presents a new continuous-time attention method for sequential learning which is tightly integrated with the neural differential equation to construct an attentive continuous-time state machine. The continuous-time attention is performed at all times over the hidden states of any kinds of regular or irregular time signals. The missing information in sequence data due to sampling loss is seamlessly compensated and attended in learning representation. The experiments on regular and irregular sequence samples from human activities, dialogue sentences and medical features show the merit of the proposed continuous-time attention for activity recognition, sentiment classification and mortality prediction, respectively.
 
+<h3 style="text-align:center">Illustration for forward pass</h1>
 <img src="./assets/Att-ODE-RNN.png" width="400"/><img src="./assets/CAtt-ODE-RNN.png" width="400"/>
 
-<h3 style="text-align:center">Procedure</h1>
-
-<img src="./assets/Att-ODE-RNN_dynamic.png" width="400"/><img src="./assets/CAtt-ODE-RNN_dynamic.png" width="400"/>
-
 <h3 style="text-align:center">Dynamics</h1>
+<img src="./assets/Att-ODE-RNN_dynamic.png" width="400"/><img src="./assets/CAtt-ODE-RNN_dynamic.png" width="400"/>
 
 
 ## Requirement
@@ -149,12 +147,10 @@ Place them in ```data/```
 
 ## Experiment
 ### Attention score on Human activity
-<p align="center">
-<img align="left" src="./assets/HA_attention_full.PNG" width="400" />
-<img align="right" src="./assets/HA_attention_important.PNG" width="400" />
-<img align="right" src="./assets/HA_attention_unimportant.PNG" width="400" />
-<img align="right" src="./assets/HA_attention_drop.PNG" width="400" />
-</p>
+
+<img src="./assets/HA_attention_full.PNG" width="400" /><img src="./assets/HA_attention_important.PNG" width="400" />
+<img src="./assets/HA_attention_unimportant.PNG" width="400" /><img src="./assets/HA_attention_drop.PNG" width="400" />
+<h4>                                                   attention score                                          </h4>
 
 ### Attention score on MELD
 <p align="center">
