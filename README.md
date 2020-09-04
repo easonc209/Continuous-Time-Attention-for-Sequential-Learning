@@ -3,13 +3,11 @@ Attention mechanism is crucial for sequential learning where a wide range of app
 
 <img src="./assets/Att-ODE-RNN.png" width="400"/><img src="./assets/CAtt-ODE-RNN.png" width="400"/>
 
-<p align="left">Models</p>
-
-
+<h1 style="text-align:center">Procedure</h1>
 
 <img src="./assets/Att-ODE-RNN_dynamic.png" width="400"/><img src="./assets/CAtt-ODE-RNN_dynamic.png" width="400"/>
 
-<p align = "left">Dynamics</p>
+<h1 style="text-align:center">Dynamics</h1>
 
 
 ## Requirement
