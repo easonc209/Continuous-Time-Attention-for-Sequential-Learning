@@ -164,10 +164,10 @@ Place them in ```data/```
 ### Attention score on MELD
 
 <h4 style="text-align:center">Example for two persons</h4>
-<img align="right" src="./assets/MELD_surprise.png"/>
+<img align="right" src="./assets/MELD_surprise.png" width="600"/>
 
 <h4 style="text-align:center">Example for more than three persons</h4>
-<img align="left" src="./assets/MELD_anger.png"/>
+<img align="left" src="./assets/MELD_anger.png" width="600"/>
 
 ## Code References
 + https://github.com/YuliaRubanova/latent_ode
