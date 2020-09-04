@@ -2,8 +2,8 @@
 Attention mechanism is crucial for sequential learning where a wide range of applications have been developed. This mechanism is basically trained to spotlight on the region of interest in hidden states of sequence data. Most of the attention methods compute the attention score through relating between a query and a document where the discrete-time state trajectory is represented. Such a discrete-time attention could not directly attend the continuous-time trajectory which is represented via neural differential equation combined with recurrent neural network. This paper presents a new continuous-time attention method for sequential learning which is tightly integrated with the neural differential equation to construct an attentive continuous-time state machine. The continuous-time attention is performed at all times over the hidden states of any kinds of regular or irregular time signals. The missing information in sequence data due to sampling loss is seamlessly compensated and attended in learning representation. The experiments on regular and irregular sequence samples from human activities, dialogue sentences and medical features show the merit of the proposed continuous-time attention for activity recognition, sentiment classification and mortality prediction, respectively.
 
 <p align="center">
-<img align="left" src="./assets/Att-ODE-RNN.png" width="300" />
-<img align="right" src="./assets/CAtt-ODE-RNN.png" width="300" />
+<img align="left" src="./assets/Att-ODE-RNN.png" width="400" />
+<img align="right" src="./assets/CAtt-ODE-RNN.png" width="400" />
 </p>
 <center>Models</center>
 
@@ -163,8 +163,8 @@ Place them in ```data/```
 
 ### Attention score on MELD
 <p align="center">
-<img align="left" src="./assets/MELD_anger.png" width="600" />
-<img align="right" src="./assets/MELD_surprise.png" width="600" />
+<img align="left" src="./assets/MELD_anger.png" width="400" />
+<img align="right" src="./assets/MELD_surprise.png" width="400" />
 </p>
 
 <a style='text-decoration: none; color: orange;'>
