@@ -6,6 +6,7 @@ Attention mechanism is crucial for sequential learning where a wide range of app
 <img src="./assets/Att-ODE-RNN.png" width="400"/><img src="./assets/CAtt-ODE-RNN.png" width="400"/>
 
 <h3 style="text-align:center">Dynamics</h3>
+
 <img src="./assets/Att-ODE-RNN_dynamic.png" width="400"/><img src="./assets/CAtt-ODE-RNN_dynamic.png" width="400"/>
 
 
@@ -164,10 +165,10 @@ Place them in ```data/```
 ### Attention score on MELD
 
 <h4 style="text-align:center">Example for two persons</h4>
-<img align="right" src="./assets/MELD_surprise.png" width="600"/>
+<img src="./assets/MELD_surprise.png" width="600"/>
 
 <h4 style="text-align:center">Example for more than three persons</h4>
-<img align="left" src="./assets/MELD_anger.png" width="600"/>
+<img src="./assets/MELD_anger.png" width="600"/>
 
 ## Code References
 + https://github.com/YuliaRubanova/latent_ode
