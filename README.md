@@ -86,7 +86,7 @@ If you want to work on MELD, there are several part you should modify (denoted b
 ──ode_rnn.py
 ──rnn_baselines.py
 ──run_models.py
-It will be modified in following version
+It will be modified in later version
 ```
 
 ### Running different datasets
