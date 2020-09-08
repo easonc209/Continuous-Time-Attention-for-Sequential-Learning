@@ -77,6 +77,18 @@ Install ```torchdiffeq``` from https://github.com/rtqichen/torchdiffeq.
 --linear-classif            # use a linear classifier instead of 1-layer NN
 ```
 
+```
+Note:
+If you want to work on MELD, there are several part you should modify (denoted by "# for meld" in code)
+──base_models.py
+──encoder_decoder.py 
+──likelihood_eval.py
+──ode_rnn.py
+──rnn_baselines.py
+──run_models.py
+It will be modified in following version
+```
+
 ### Running different datasets
 + Human Activity
 ```
@@ -138,14 +150,17 @@ python3 run_models.py --niters 200 -n 10000 -l 15 --dataset activity --ode-rnn -
 ### Human Activity
 Raw data is available from https://archive.ics.uci.edu/ml/datasets/Localization+Data+for+Person+Activity
 Place them in ```data/```
+```Download automatically```
 
 ### PhysioNet
 Raw data is available from https://physionet.org/physiobank/database/challenge/2012/
 Place them in ```data/```
+```Download automatically```
 
 ### MELD
 Raw data is available from https://github.com/declare-lab/MELD
-Place them in ```data/```
+Place them in ```data/MELD/raw```
+```Run preprocessing_meld.ipynb first```
 
 ## Experiment
 ### Attention score on Human activity
