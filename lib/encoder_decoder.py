@@ -410,11 +410,16 @@ class Encoder_z0_ODE_RNN_att(nn.Module):
     # For every y_i we have two versions: encoded from data and derived from ODE by running it backwards from t_i+1 to t_i
     # Compute a weighted sum of y_i from data and y_i from ode. Use weighted y_i as an initial value for ODE runing from t_i to t_i-1
     # Continue until we get to z0
-    def __init__(self, latent_dim, input_dim, z0_dim = None, n_gru_units = 100
-        , diffeq_solver = None, GRU_update = None, 
+    def __init__(self, latent_dim, input_dim, diffeq_solver = None, 
+        z0_dim = None, GRU_update = None, n_gru_units = 100,
         device = torch.device("cpu")):
         
         super(Encoder_z0_ODE_RNN_att, self).__init__()
+
+        if z0_dim is None:
+            self.z0_dim = latent_dim
+        else:
+            self.z0_dim = z0_dim
 
         if GRU_update is None:
             self.GRU_update = GRU_unit(latent_dim, input_dim, 
@@ -428,6 +433,12 @@ class Encoder_z0_ODE_RNN_att(nn.Module):
         self.input_dim = input_dim
         self.device = device
         self.extra_info = None
+        
+        self.transform_z0 = nn.Sequential(
+           nn.Linear(latent_dim * 2, 100),
+           nn.Tanh(),
+           nn.Linear(100, self.z0_dim * 2),)
+        utils.init_network_weights(self.transform_z0)
 
 
     def forward(self, data, time_steps, minimum_step = None, run_backwards = True, save_info = False):
@@ -447,17 +458,20 @@ class Encoder_z0_ODE_RNN_att(nn.Module):
             extra_info = None
         else:
             
-            last_yi, last_yi_std, _, sum_att_score, context_vector, extra_info = self.run_odernn(
+            last_yi, last_yi_std, lt, context_vector, extra_info = self.run_odernn(
                 data, time_steps, minimum_step = minimum_step, run_backwards = run_backwards,
                 save_info = save_info)
+            last_yi = last_yi + utils.reverse_dim1(context_vector)[:,-1,:]
         
-        means_z0 = last_yi.reshape(n_traj, self.latent_dim)
-        std_z0 = last_yi_std.reshape(n_traj, self.latent_dim)
+        means_z0 = last_yi.reshape(1, n_traj, self.latent_dim)
+        std_z0 = last_yi_std.reshape(1, n_traj, self.latent_dim)
         
+        mean_z0, std_z0 = utils.split_last_dim( self.transform_z0( torch.cat((means_z0, std_z0), -1)))
+        std_z0 = std_z0.abs()
         if save_info:
             self.extra_info = extra_info
 
-        return mean_z0, std_z0, sum_att_score, context_vector
+        return mean_z0, std_z0
 
 
     def run_odernn(self, data, time_steps, minimum_step = None,

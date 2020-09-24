@@ -265,10 +265,12 @@ if __name__ == '__main__':
                 train_classif_w_reconstr = (args.dataset == "physionet")
                 ).to(device)
     elif args.latent_ode:
+        layer_type = "linear"
+        if args.catt:
+            experimentType += "att_"
         experimentType += "latentode/"
         model = create_LatentODE_model(args, input_dim, z0_prior, obsrv_std, device, 
-            classif_per_tp = classif_per_tp,
-            n_labels = n_labels)
+            classif_per_tp = classif_per_tp, n_labels = n_labels, layer_type = layer_type, catt = args.catt)
     else:
         raise Exception("Model not specified")
     ##################################################################

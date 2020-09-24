@@ -73,7 +73,8 @@ def compute_binary_CE_loss(label_predictions, mortality_label):
     assert(not torch.isnan(mortality_label).any())
 
     # For each trajectory, we get n_traj_samples samples from z0 -- compute loss on all of them
-    mortality_label = mortality_label.reshape(-1,1).repeat(n_traj_samples, 1, 1)
+    #mortality_label = mortality_label.reshape(-1,1).repeat(n_traj_samples, 1, 1) # for ode-rnn
+    mortality_label = mortality_label.repeat(n_traj_samples, 1, 1) #for latent ode
     ce_loss = nn.BCEWithLogitsLoss()(label_predictions, mortality_label)
 
     # divide by number of patients in a batch

@@ -52,6 +52,7 @@ class LatentODE(VAE_Baseline):
         mask = None, n_traj_samples = 1, run_backwards = True, mode = None):
 
         if isinstance(self.encoder_z0, Encoder_z0_ODE_RNN) or \
+            isinstance(self.encoder_z0, Encoder_z0_ODE_RNN_att) or \
             isinstance(self.encoder_z0, Encoder_z0_RNN):
 
             truth_w_mask = truth

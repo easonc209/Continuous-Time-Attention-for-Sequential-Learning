@@ -100,7 +100,8 @@ class ODEFunc_att(nn.Module):
                 dx = layer(t_local, dx)
             else:
                 dx = layer(dx)
-        dx = torch.unsqueeze(dx,0)
+        if len(dx.size())!=len(y.size()):
+            dx = torch.unsqueeze(dx,0)
         return dx
         
     def set_query(self, total_n_tp):

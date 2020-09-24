@@ -13,15 +13,15 @@ from torch.nn.functional import relu
 import lib.utils as utils
 from lib.latent_ode import LatentODE
 from lib.encoder_decoder import *
-from lib.diffeq_solver import DiffeqSolver
+from lib.diffeq_solver import DiffeqSolver, DiffeqSolver_att
 
 from torch.distributions.normal import Normal
-from lib.ode_func import ODEFunc
+from lib.ode_func import ODEFunc, ODEFunc_att
 
 #####################################################################################################
 
 def create_LatentODE_model(args, input_dim, z0_prior, obsrv_std, device, 
-    classif_per_tp = False, n_labels = 1, layer_type = 'linear'):
+    classif_per_tp = False, n_labels = 1, layer_type = 'linear', catt = False):
 
     dim = args.latents
     #if args.poisson:
@@ -61,18 +61,30 @@ def create_LatentODE_model(args, input_dim, z0_prior, obsrv_std, device,
     if args.z0_encoder == "odernn":
         ode_func_net = utils.create_net_with_time(n_rec_dims, n_rec_dims, 
             n_layers = args.rec_layers, n_units = args.units, layer_type = layer_type)
+        if catt:
+            rec_ode_func = ODEFunc_att(
+                input_dim = enc_input_dim, 
+                latent_dim = n_rec_dims,
+                ode_func_net = ode_func_net,
+                device = device).to(device)
 
-        rec_ode_func = ODEFunc(
-            input_dim = enc_input_dim, 
-            latent_dim = n_rec_dims,
-            ode_func_net = ode_func_net,
-            device = device).to(device)
+            z0_diffeq_solver = DiffeqSolver_att(enc_input_dim, rec_ode_func, "euler", args.latents, 
+                odeint_rtol = 1e-3, odeint_atol = 1e-4, device = device)
+            
+            encoder_z0 = Encoder_z0_ODE_RNN_att(n_rec_dims, enc_input_dim, z0_diffeq_solver, 
+                z0_dim = z0_dim, n_gru_units = args.gru_units, device = device).to(device)
+        else:
+            rec_ode_func = ODEFunc(
+                input_dim = enc_input_dim, 
+                latent_dim = n_rec_dims,
+                ode_func_net = ode_func_net,
+                device = device).to(device)
 
-        z0_diffeq_solver = DiffeqSolver(enc_input_dim, rec_ode_func, "euler", args.latents, 
-            odeint_rtol = 1e-3, odeint_atol = 1e-4, device = device)
-        
-        encoder_z0 = Encoder_z0_ODE_RNN(n_rec_dims, enc_input_dim, z0_diffeq_solver, 
-            z0_dim = z0_dim, n_gru_units = args.gru_units, device = device).to(device)
+            z0_diffeq_solver = DiffeqSolver(enc_input_dim, rec_ode_func, "euler", args.latents, 
+                odeint_rtol = 1e-3, odeint_atol = 1e-4, device = device)
+            
+            encoder_z0 = Encoder_z0_ODE_RNN(n_rec_dims, enc_input_dim, z0_diffeq_solver, 
+                z0_dim = z0_dim, n_gru_units = args.gru_units, device = device).to(device)
 
     elif args.z0_encoder == "rnn":
         encoder_z0 = Encoder_z0_RNN(z0_dim, enc_input_dim,

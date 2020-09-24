@@ -259,20 +259,19 @@ def compute_loss_all_batches(model,
  
     if args.classif:
         if args.dataset == "physionet":
-            all_test_labels = all_test_labels.reshape(-1)
-            classif_predictions = classif_predictions.reshape(n_traj_samples, -1)
+            #all_test_labels = all_test_labels.reshape(-1) #for ode-rnn
+            #classif_predictions = classif_predictions.reshape(n_traj_samples, -1) #for ode-rnn
             # For each trajectory, we get n_traj_samples samples from z0 -- compute loss on all of them
-            #all_test_labels = all_test_labels.repeat(n_traj_samples,1,1)
+            all_test_labels = all_test_labels.repeat(n_traj_samples,1,1) #for latent ode
             
             idx_not_nan = (1 - torch.isnan(all_test_labels).float()).nonzero()
-            classif_predictions = classif_predictions[:, idx_not_nan]
-            
-            all_test_labels = all_test_labels[idx_not_nan]
+            classif_predictions = classif_predictions[:, idx_not_nan] 
+            all_test_labels = all_test_labels[:, idx_not_nan] #for latent ode
+            #all_test_labels = all_test_labels[idx_not_nan] #for ode-rnn
             #dirname = "plots/" + str(experimentID) + "/"
             #os.makedirs(dirname, exist_ok=True)
             
             total["auc"] = 0.
-            
             if torch.sum(all_test_labels) != 0.:
                 print("Number of labeled examples: {}".format(len(all_test_labels.reshape(-1))))
                 print("Number of examples with mortality 1: {}".format(torch.sum(all_test_labels == 1.)))
