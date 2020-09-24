@@ -59,6 +59,7 @@ Install ```torchdiffeq``` from https://github.com/rtqichen/torchdiffeq.
 ## model type
 --classic-rnn               # RNN baseline
 --ode-rnn                   # ODE-RNN baseline
+--latent-ode                # Latent ODE model
 
 ## model structure
 --att                       # discrete-time attention mechanism
@@ -68,7 +69,9 @@ Install ```torchdiffeq``` from https://github.com/rtqichen/torchdiffeq.
 
 ## paremater for model
 -l, --latents               # size of the latent state
---rec-layers                # number of layers in ODE func 
+--rec-dims                  # Dimensionality of the recognition model
+--rec-layers                # number of layers in ODE func (recognition)
+--gen-layers                # number of layers in ODE func (generation)
 -u, --units                 # number of units per layer in ODE func
 -g, --gru-units             # number of units per layer in GRU
 
